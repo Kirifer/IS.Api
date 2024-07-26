@@ -1,6 +1,6 @@
 ﻿using Is.Core.Abstraction;
 using Is.Core.Filtering;
-using Is.Models;
+using Is.Models.Entities.User;
 
 namespace Is.Domain.Services.Interface
 {

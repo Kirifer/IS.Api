@@ -1,7 +1,7 @@
 ﻿using Is.Datalayer.Entities;
-using Is.Models;
 
 using AutoMapper;
+using Is.Models.Entities.User;
 
 namespace Is.Api.Mappings
 {

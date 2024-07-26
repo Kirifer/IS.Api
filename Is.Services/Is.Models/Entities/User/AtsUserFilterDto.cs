@@ -1,4 +1,4 @@
-﻿namespace Is.Models
+﻿namespace Is.Models.Entities.User
 {
     public class AtsUserFilterDto
     {

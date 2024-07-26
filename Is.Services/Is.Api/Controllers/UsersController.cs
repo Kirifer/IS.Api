@@ -2,8 +2,7 @@
 
 using Is.Core.Filtering;
 using Is.Domain.Services.Interface;
-using Is.Models;
-
+using Is.Models.Entities.User;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Is.Api.Controllers

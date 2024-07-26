@@ -7,13 +7,13 @@ using Is.Datalayer;
 using Is.Datalayer.Entities;
 using Is.Datalayer.Interface;
 using Is.Domain.Services.Interface;
-using Is.Models;
 using Is.Shared.Enums;
 
 using AutoMapper;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Is.Models.Entities.User;
 
 namespace Is.Domain.Services
 {

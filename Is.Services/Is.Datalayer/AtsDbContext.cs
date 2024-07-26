@@ -11,6 +11,10 @@ namespace Is.Datalayer
     {
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Supplies> Supplies { get; set; }
+
+        public DbSet<SupplyCodes> SupplyCodes { get; set; }
+
         public AtsDbContext(DbContextOptions<DbContextBase> options)
            : base(options)
         {

@@ -1,6 +1,6 @@
 ﻿using Is.Shared.Models;
 
-namespace Is.Models
+namespace Is.Models.Entities.User
 {
     public class AtsUserDto : EntityBaseDto
     {
