@@ -43,6 +43,7 @@ namespace Is.Domain.Services
                 foreach (var supplier in result)
                 {
                     var suppliesDto = new IsSuppliesDto();
+                    suppliesDto.Id = supplier.Id;
                     suppliesDto.Category = supplier.Category;
                     suppliesDto.Item = supplier.Item;
                     suppliesDto.Color = supplier.Color;
@@ -71,6 +72,7 @@ namespace Is.Domain.Services
                 var result = await _suppliesRepository.GetAsync(id);
                 var suppliesDto = new IsSuppliesDto
                 {
+                    Id = result.Id,
                     Category = result.Category,
                     Item = result.Item,
                     Color = result.Color,
@@ -98,6 +100,7 @@ namespace Is.Domain.Services
             {
                 var createRef = new Supplies
                 {
+                    Id= payload.Id,
                     Category = payload.Category,
                     Item = payload.Item,
                     Color = payload.Color,
@@ -114,6 +117,7 @@ namespace Is.Domain.Services
 
                 var suppliesDto = new IsSuppliesDto
                 {
+                    Id = result.Id,
                     Category = result.Category,
                     Item = result.Item,
                     Color = result.Color,
@@ -137,26 +141,31 @@ namespace Is.Domain.Services
             try
             {
                 var updateRef = await _suppliesRepository.GetAsync(id);
-
+                updateRef.Id = supplier.Id;
                 updateRef.Category = supplier.Category;
                 updateRef.Item = supplier.Item;
                 updateRef.Color = supplier.Color;
                 updateRef.Size = supplier.Size;
                 updateRef.Quantity = supplier.Quantity;
                 updateRef.SuppliesTaken = supplier.SuppliesTaken;
+                updateRef.SuppliesLeft = supplier.SuppliesLeft;
                 updateRef.CostPerUnit = supplier.CostPerUnit;
+                updateRef.Total = supplier.Total;
 
                 var result = await _suppliesRepository.UpdateAsync(updateRef);
 
                 var suppliesDto = new IsSuppliesDto
                 {
+                    Id = result.Id,
                     Category = result.Category,
                     Item = result.Item,
                     Color = result.Color,
                     Size = result.Size,
                     Quantity = result.Quantity,
                     SuppliesTaken = result.SuppliesTaken,
+                    SuppliesLeft = result.SuppliesLeft,
                     CostPerUnit = result.CostPerUnit,
+                    Total = result.Total,
                 };
                 return Response<IsSuppliesDto>.Success(suppliesDto);
             }
@@ -177,6 +186,7 @@ namespace Is.Domain.Services
                 var result = await _suppliesRepository.DeleteAsync(deleteRef);
                 var suppliesDto = new IsSuppliesDto
                 {
+                    Id = result.Id,
                     Category = result.Category,
                     Item = result.Item,
                     Color = result.Color,

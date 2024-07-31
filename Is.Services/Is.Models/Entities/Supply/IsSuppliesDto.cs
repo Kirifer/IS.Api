@@ -8,6 +8,7 @@ namespace Is.Models.Entities.Supply
 {
     public class IsSuppliesDto
     {
+        public Guid Id { get; set; }
         public string Category { get; set; }
         public string Item { get; set; }
         public string Color { get; set; }

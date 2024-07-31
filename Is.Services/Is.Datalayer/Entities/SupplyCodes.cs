@@ -6,6 +6,7 @@ namespace Is.Datalayer.Entities
 {
     public class SupplyCodes : DbEntityIdBase
     {
+        public Guid Id { get; set; }
         public string Code { get; set; }
         public string Category { get; set; }
         public string Item { get; set; }

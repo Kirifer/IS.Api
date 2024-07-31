@@ -8,6 +8,7 @@ namespace Is.Models.Entities.SupplyCodes
 {
     public class IsSupplyCodesUpdateDto
     {
+        public Guid Id { get; set; }
         public string Code { get; set; }
         public string Category { get; set; }
         public string Item { get; set; }

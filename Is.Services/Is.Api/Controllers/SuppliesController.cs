@@ -45,7 +45,7 @@ namespace Is.Api.Controllers
 
         // PUT
         [HttpPut]
-        [Route("supplies")]
+        [Route("supplies/{id}")]
         public async Task<IActionResult> UpdateSuppliesAsync(Guid id, [FromBody] IsSuppliesUpdateDto payload)
         {
             var response = await suppliesService.UpdateSuppliesAsync(id, payload);
@@ -54,7 +54,7 @@ namespace Is.Api.Controllers
 
         // DELETE
         [HttpDelete]
-        [Route("supplies")]
+        [Route("supplies/{id}")]
         public async Task<IActionResult> DeleteSupplyAsync(Guid id)
         {
             var response = await suppliesService.DeleteSuppliesAsync(id);

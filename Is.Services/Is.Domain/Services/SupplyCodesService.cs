@@ -43,6 +43,7 @@ namespace Is.Domain.Services
                     // pass the values from the supplycodes to the DTO
                     var supplycodesDto = new IsSupplyCodesDto
                     {
+                        Id = supplycodes.Id,
                         Code = supplycodes.Code,
                         Category = supplycodes.Category,
                         Item = supplycodes.Item,
@@ -74,6 +75,7 @@ namespace Is.Domain.Services
                 var result = await _supplyCodesRepository.GetAsync(id);
                 var supplycodesDto = new IsSupplyCodesDto
                 {
+                    Id = result.Id,
                     Code = result.Code,
                     Category = result.Category,
                     Item = result.Item,
@@ -98,6 +100,7 @@ namespace Is.Domain.Services
             {
                 var createRef = new SupplyCodes
                 {
+                    Id = payload.Id,
                     Code = payload.Code,
                     Category = payload.Category,
                     Item = payload.Item,
@@ -109,6 +112,7 @@ namespace Is.Domain.Services
                 var result = await _supplyCodesRepository.AddAsync(createRef);
                 var supplycodesDto = new IsSupplyCodesDto
                 {
+                    Id= result.Id,
                     Code = result.Code,
                     Category = result.Category,
                     Item = result.Item,
@@ -132,16 +136,19 @@ namespace Is.Domain.Services
             try
             {
                 var updateRef = await _supplyCodesRepository.GetAsync(id);
+                updateRef.Id = code.Id;
                 updateRef.Code = code.Code;
                 updateRef.Category = code.Category;
                 updateRef.Item = code.Item;
                 updateRef.Color = code.Color;
                 updateRef.Size = code.Size;
                 updateRef.Quantity = code.Quantity;
+                updateRef.SupplyTaken = code.SupplyTaken;
 
                 var result = await _supplyCodesRepository.UpdateAsync(updateRef);
                 var supplycodesDto = new IsSupplyCodesDto
                 {
+                    Id = result.Id,
                     Code = result.Code,
                     Category = result.Category,
                     Item = result.Item,
@@ -171,6 +178,7 @@ namespace Is.Domain.Services
                 var result = await _supplyCodesRepository.DeleteAsync(deleteRef);
                 var supplycodesDto = new IsSupplyCodesDto
                 {
+                    Id= result.Id,
                     Code = result.Code,
                     Category = result.Category,
                     Item = result.Item,
