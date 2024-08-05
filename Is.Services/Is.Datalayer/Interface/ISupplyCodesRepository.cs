@@ -4,6 +4,5 @@ namespace Is.Datalayer.Interface
 {
     public interface ISupplyCodesRepository : IBaseRepository<SupplyCodes>
     {
-
     }
 }

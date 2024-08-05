@@ -45,13 +45,13 @@ namespace Is.Domain.Services
                     {
                         Id = supplycodes.Id,
                         Code = supplycodes.Code,
+                        SequenceCode = supplycodes.SequenceCode,
                         Category = supplycodes.Category,
                         Item = supplycodes.Item,
                         Color = supplycodes.Color,
                         Size = supplycodes.Size,
                         Quantity = supplycodes.Quantity,
                         SupplyTaken = supplycodes.SupplyTaken,
-                        
 
                     };
 
@@ -77,6 +77,7 @@ namespace Is.Domain.Services
                 {
                     Id = result.Id,
                     Code = result.Code,
+                    SequenceCode = result.SequenceCode,
                     Category = result.Category,
                     Item = result.Item,
                     Color = result.Color,
@@ -94,41 +95,58 @@ namespace Is.Domain.Services
         }
 
         // CREATE
-        public async Task<Response<IsSupplyCodesDto>> CreateSupplyCodesAsync(IsSupplyCodesCreateDto payload)
+        public async Task<Response<List<IsSupplyCodesDto>>> CreateSupplyCodesAsync(IsSupplyCodesCreateDto payload)
         {
             try
             {
-                var createRef = new SupplyCodes
-                {
-                    Id = payload.Id,
-                    Code = payload.Code,
-                    Category = payload.Category,
-                    Item = payload.Item,
-                    Color = payload.Color,
-                    Size = payload.Size,
-                    Quantity = payload.Quantity,
+                var supplycodesDtoList = new List<IsSupplyCodesDto>();
 
-                };
-                var result = await _supplyCodesRepository.AddAsync(createRef);
-                var supplycodesDto = new IsSupplyCodesDto
-                {
-                    Id= result.Id,
-                    Code = result.Code,
-                    Category = result.Category,
-                    Item = result.Item,
-                    Color = result.Color,
-                    Size = result.Size,
-                    Quantity = result.Quantity,
+                var existingEntries = await _supplyCodesRepository.GetAllAsync(sc =>
+                    sc.Code == payload.Code);
 
-                };
-                return Response<IsSupplyCodesDto>.Success(supplycodesDto);
+                // Determine the highest SequenceCode
+                int maxSequenceCode = existingEntries.Any() ? existingEntries.Max(sc => sc.SequenceCode) : 0;
+                // loop for the quantity
+                for (int i = 1; i <= payload.Quantity; i++)
+                {
+                    var createRef = new SupplyCodes
+                    {
+                        Id = Guid.NewGuid(), // generate new id for each entry
+                        Code = payload.Code,
+                        SequenceCode = maxSequenceCode + i, // continue the sequence
+                        Category = payload.Category,
+                        Item = payload.Item,
+                        Color = payload.Color,
+                        Size = payload.Size,
+                        Quantity = 1, 
+                    };
+
+                    var result = await _supplyCodesRepository.AddAsync(createRef);
+
+                    var supplycodesDto = new IsSupplyCodesDto
+                    {
+                        Id = result.Id,
+                        Code = result.Code,
+                        SequenceCode = result.SequenceCode,
+                        Category = result.Category,
+                        Item = result.Item,
+                        Color = result.Color,
+                        Size = result.Size,
+                        Quantity = result.Quantity,
+                    };
+
+                    supplycodesDtoList.Add(supplycodesDto);
+                }
+
+                return Response<List<IsSupplyCodesDto>>.Success(supplycodesDtoList, supplycodesDtoList.Count);
             }
             catch (Exception ex)
             {
-                Logger.LogError(ex, "Error occured while creating supply code");
-                return Response<IsSupplyCodesDto>.Exception(ex);
+                Logger.LogError(ex, "Error occurred while creating supply codes");
+                return Response<List<IsSupplyCodesDto>>.Exception(ex);
             }
         }
+
 
         // UPDATE
         public async Task<Response<IsSupplyCodesDto>> UpdateSupplyCodesAsync(Guid id, IsSupplyCodesUpdateDto code)
@@ -138,6 +156,7 @@ namespace Is.Domain.Services
                 var updateRef = await _supplyCodesRepository.GetAsync(id);
                 updateRef.Id = code.Id;
                 updateRef.Code = code.Code;
+                updateRef.SequenceCode = code.SequenceCode;
                 updateRef.Category = code.Category;
                 updateRef.Item = code.Item;
                 updateRef.Color = code.Color;
@@ -150,6 +169,7 @@ namespace Is.Domain.Services
                 {
                     Id = result.Id,
                     Code = result.Code,
+                    SequenceCode = result.SequenceCode,
                     Category = result.Category,
                     Item = result.Item,
                     Color = result.Color,
@@ -180,6 +200,7 @@ namespace Is.Domain.Services
                 {
                     Id= result.Id,
                     Code = result.Code,
+                    SequenceCode = result.SequenceCode,
                     Category = result.Category,
                     Item = result.Item,
                     Color = result.Color,

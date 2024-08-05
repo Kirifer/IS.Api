@@ -36,7 +36,7 @@ namespace Is.Api.Controllers
             return StatusCode((int)response.Code, response);
         }
 
-
+        // HTTP POST
         [HttpPost]
         [Route("supplycodes")]
         public async Task<IActionResult> AddSupplyCodesAsync([FromBody] IsSupplyCodesCreateDto payload)

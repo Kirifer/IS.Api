@@ -10,6 +10,7 @@ namespace Is.Models.Entities.SupplyCodes
     {
         public Guid Id { get; set; }
         public string Code { get; set; }
+        public int SequenceCode { get; set; }
         public string Category { get; set; }
         public string Item { get; set; }
         public string Color { get; set; }

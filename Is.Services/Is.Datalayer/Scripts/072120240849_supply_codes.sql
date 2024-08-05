@@ -4,6 +4,7 @@ begin
   create table if not exists public.supply_codes (
     id uuid not null,
     code text not null,
+    sequence_code int not null,
     category text not null,
     item text not null,
     color text not null,

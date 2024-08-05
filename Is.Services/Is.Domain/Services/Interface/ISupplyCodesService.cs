@@ -13,7 +13,7 @@ namespace Is.Domain.Services.Interface
     {
         Task<Response<List<IsSupplyCodesDto>>> GetSupplyCodesAsync();
         Task<Response<IsSupplyCodesDto>> GetSupplyCodeAsync(Guid id);
-        Task<Response<IsSupplyCodesDto>> CreateSupplyCodesAsync(IsSupplyCodesCreateDto payload);
+        Task<Response<List<IsSupplyCodesDto>>> CreateSupplyCodesAsync(IsSupplyCodesCreateDto payload);
         Task<Response<IsSupplyCodesDto>> UpdateSupplyCodesAsync(Guid id, IsSupplyCodesUpdateDto payload);
         Task<Response<IsSupplyCodesDto>> DeleteSupplyCodesAsync(Guid id);
     }
