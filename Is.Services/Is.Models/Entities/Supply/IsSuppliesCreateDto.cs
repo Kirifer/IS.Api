@@ -12,5 +12,6 @@
         public int SuppliesLeft { get; set; }
         public decimal CostPerUnit { get; set; }
         public decimal Total { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 }

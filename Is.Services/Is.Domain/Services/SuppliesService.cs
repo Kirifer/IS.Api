@@ -53,6 +53,7 @@ namespace Is.Domain.Services
                     suppliesDto.SuppliesLeft = supplier.SuppliesLeft;
                     suppliesDto.CostPerUnit = supplier.CostPerUnit;
                     suppliesDto.Total = supplier.Total;
+                    suppliesDto.DateCreated = supplier.DateCreated;
                     suppliesDtos.Add(suppliesDto);
                 }
                 return Response<List<IsSuppliesDto>>.Success(suppliesDtos);
@@ -82,6 +83,7 @@ namespace Is.Domain.Services
                     SuppliesLeft = result.SuppliesLeft,
                     CostPerUnit = result.CostPerUnit,
                     Total = result.Total,
+                    DateCreated = result.DateCreated,
 
                 };
                 return Response<IsSuppliesDto>.Success(suppliesDto);
@@ -110,6 +112,7 @@ namespace Is.Domain.Services
                     SuppliesLeft = payload.SuppliesLeft,
                     CostPerUnit = payload.CostPerUnit,
                     Total = payload.Total,
+                    DateCreated = payload.DateCreated,
 
                 };
 
@@ -124,6 +127,7 @@ namespace Is.Domain.Services
                     Size = result.Size,
                     Quantity = result.Quantity,
                     CostPerUnit = result.CostPerUnit,
+
                 };
                 return Response<IsSuppliesDto>.Success(suppliesDto);
 
@@ -196,6 +200,7 @@ namespace Is.Domain.Services
                     SuppliesLeft = result.SuppliesLeft,
                     CostPerUnit = result.CostPerUnit,
                     Total = result.Total,
+                    DateCreated = result.DateCreated,
 
                 };
                 return Response<IsSuppliesDto>.Success(suppliesDto);
