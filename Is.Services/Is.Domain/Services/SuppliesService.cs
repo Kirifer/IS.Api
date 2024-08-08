@@ -31,6 +31,25 @@ namespace Is.Domain.Services
         {
             _suppliesRepository = suppliesRepository;
         }
+        // Helper method to apply UTC+08:00 offset
+        private DateTime ConvertToPhilippinesTimeAsUtc(DateTime utcDateTime)
+        {
+            // Convert UTC time to Philippines time zone
+            TimeZoneInfo philippinesTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Asia/Manila");
+            DateTime philippinesTime = TimeZoneInfo.ConvertTimeFromUtc(utcDateTime, philippinesTimeZone);
+
+            // Return the Philippines time as UTC
+            return DateTime.SpecifyKind(philippinesTime, DateTimeKind.Utc);
+        }
+
+        private DateTime EnsureUtc(DateTime dateTime)
+        {
+            if (dateTime.Kind == DateTimeKind.Unspecified)
+            {
+                return DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
+            }
+            return dateTime.ToUniversalTime();
+        }
 
         // GET
         public async Task<Response<List<IsSuppliesDto>>> GetSuppliesAsync()
@@ -53,7 +72,9 @@ namespace Is.Domain.Services
                     suppliesDto.SuppliesLeft = supplier.SuppliesLeft;
                     suppliesDto.CostPerUnit = supplier.CostPerUnit;
                     suppliesDto.Total = supplier.Total;
-                    suppliesDto.DateCreated = supplier.DateCreated;
+                    suppliesDto.DateCreated = ConvertToPhilippinesTimeAsUtc(EnsureUtc(supplier.DateCreated));
+
+
                     suppliesDtos.Add(suppliesDto);
                 }
                 return Response<List<IsSuppliesDto>>.Success(suppliesDtos);
@@ -83,7 +104,8 @@ namespace Is.Domain.Services
                     SuppliesLeft = result.SuppliesLeft,
                     CostPerUnit = result.CostPerUnit,
                     Total = result.Total,
-                    DateCreated = result.DateCreated,
+                    DateCreated = ConvertToPhilippinesTimeAsUtc(EnsureUtc(result.DateCreated))
+
 
                 };
                 return Response<IsSuppliesDto>.Success(suppliesDto);
@@ -112,7 +134,8 @@ namespace Is.Domain.Services
                     SuppliesLeft = payload.SuppliesLeft,
                     CostPerUnit = payload.CostPerUnit,
                     Total = payload.Total,
-                    DateCreated = payload.DateCreated,
+                    DateCreated = EnsureUtc(payload.DateCreated)
+
 
                 };
 
@@ -127,6 +150,7 @@ namespace Is.Domain.Services
                     Size = result.Size,
                     Quantity = result.Quantity,
                     CostPerUnit = result.CostPerUnit,
+                    DateCreated = ConvertToPhilippinesTimeAsUtc(EnsureUtc(result.DateCreated))
 
                 };
                 return Response<IsSuppliesDto>.Success(suppliesDto);
@@ -145,6 +169,7 @@ namespace Is.Domain.Services
             try
             {
                 var updateRef = await _suppliesRepository.GetAsync(id);
+
                 updateRef.Id = supplier.Id;
                 updateRef.Category = supplier.Category;
                 updateRef.Item = supplier.Item;
@@ -152,9 +177,13 @@ namespace Is.Domain.Services
                 updateRef.Size = supplier.Size;
                 updateRef.Quantity = supplier.Quantity;
                 updateRef.SuppliesTaken = supplier.SuppliesTaken;
-                updateRef.SuppliesLeft = supplier.SuppliesLeft;
+
+                // Calculate SuppliesLeft and Total
+                updateRef.SuppliesLeft = updateRef.Quantity - updateRef.SuppliesTaken;
                 updateRef.CostPerUnit = supplier.CostPerUnit;
-                updateRef.Total = supplier.Total;
+                updateRef.Total = updateRef.SuppliesLeft * updateRef.CostPerUnit;
+
+                updateRef.DateCreated = EnsureUtc(updateRef.DateCreated);
 
                 var result = await _suppliesRepository.UpdateAsync(updateRef);
 
@@ -170,6 +199,7 @@ namespace Is.Domain.Services
                     SuppliesLeft = result.SuppliesLeft,
                     CostPerUnit = result.CostPerUnit,
                     Total = result.Total,
+                    DateCreated = ConvertToPhilippinesTimeAsUtc(EnsureUtc(result.DateCreated))
                 };
                 return Response<IsSuppliesDto>.Success(suppliesDto);
             }
@@ -178,7 +208,6 @@ namespace Is.Domain.Services
                 Logger.LogError(ex, "Error occurred while updating");
                 return Response<IsSuppliesDto>.Exception(ex);
             }
-
         }
 
         // DELETE
@@ -200,7 +229,7 @@ namespace Is.Domain.Services
                     SuppliesLeft = result.SuppliesLeft,
                     CostPerUnit = result.CostPerUnit,
                     Total = result.Total,
-                    DateCreated = result.DateCreated,
+                    DateCreated = ConvertToPhilippinesTimeAsUtc(EnsureUtc(result.DateCreated))
 
                 };
                 return Response<IsSuppliesDto>.Success(suppliesDto);

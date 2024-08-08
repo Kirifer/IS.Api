@@ -18,6 +18,6 @@ namespace Is.Models.Entities.SupplyCodes
         public int Quantity { get; set; }
         public bool SupplyTaken { get; set; }
 
-        public string CodeDisplay => $"{Code}-{SequenceCode.ToString("000#")}";
+        public string CodeDisplay => Code + SequenceCode.ToString("000#");
     }
 }

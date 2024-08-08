@@ -12,7 +12,7 @@ begin
     supplies_left int not null,
     cost_per_unit decimal not null,
     total decimal not null,
-    date_created timestamp not null,
+    date_created date not null,
 
     constraint pk_supplies primary key (id)
 
