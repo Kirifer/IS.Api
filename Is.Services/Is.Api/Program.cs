@@ -49,6 +49,7 @@ builder.Services.AddCoreEntityServices<IEntityService>("Is.Domain");
 builder.Services.AddAtsDatabase(secretsConfig);
 builder.Services.AddScoped<ISuppliesRepository, SuppliesRepository>();
 builder.Services.AddScoped<ISupplyCodesRepository, SupplyCodesRepository>();
+builder.Services.AddScoped<IBudgetExpensesRepository, BudgetExpensesRepository>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

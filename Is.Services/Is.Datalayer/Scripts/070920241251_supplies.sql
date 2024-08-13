@@ -1,6 +1,6 @@
 do $$
 begin
-  -- Create users table
+  -- Create supplies table
   create table if not exists public.supplies (
     id uuid not null,
     category text not null,

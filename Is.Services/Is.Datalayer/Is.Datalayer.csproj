@@ -7,11 +7,13 @@
   </PropertyGroup>
 
 
+
   <ItemGroup>
     <ProjectReference Include="..\..\Is.Core.Api\Is.Core\Is.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Scripts\081220241057_budget_expenses.sql" />
     <EmbeddedResource Include="Scripts\072120240849_supply_codes.sql" />
     <EmbeddedResource Include="Scripts\070920241251_supplies.sql" />
     <EmbeddedResource Include="Scripts\070920241251_user.sql" />

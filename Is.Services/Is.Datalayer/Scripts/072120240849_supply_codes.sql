@@ -1,6 +1,6 @@
 do $$
 begin
-  -- Create users table
+  -- Create supply codes table
   create table if not exists public.supply_codes (
     id uuid not null,
     code text not null,

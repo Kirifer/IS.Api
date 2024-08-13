@@ -9,6 +9,7 @@ namespace Is.Datalayer
 {
     public class AtsDbContext : DbContextBase
     {
+        public DbSet<BudgetExpenses> BudgetExpenses { get; set; }
         public DbSet<User> Users { get; set; }
 
         public DbSet<Supplies> Supplies { get; set; }
