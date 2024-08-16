@@ -89,8 +89,7 @@ namespace Is.Domain.Services
             {
                 var updateRef = await _userRepository.GetAsync(id);
 
-                updateRef.FirstName = user.FirstName;
-                updateRef.LastName = user.LastName;
+                updateRef.Username = user.Username;
                 updateRef.Password = user.Password;
 
                 var result = await _userRepository.UpdateAsync(updateRef);

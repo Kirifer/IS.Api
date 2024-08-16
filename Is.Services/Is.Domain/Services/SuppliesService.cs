@@ -133,7 +133,7 @@ namespace Is.Domain.Services
                     SuppliesTaken = payload.SuppliesTaken,
                     SuppliesLeft = payload.SuppliesLeft,
                     CostPerUnit = payload.CostPerUnit,
-                    Total = payload.Total,
+                    Total = payload.Quantity * payload.CostPerUnit,
                     DateCreated = EnsureUtc(payload.DateCreated)
 
 
@@ -181,7 +181,7 @@ namespace Is.Domain.Services
                 // Calculate SuppliesLeft and Total
                 updateRef.SuppliesLeft = updateRef.Quantity - updateRef.SuppliesTaken;
                 updateRef.CostPerUnit = supplier.CostPerUnit;
-                updateRef.Total = updateRef.SuppliesLeft * updateRef.CostPerUnit;
+                updateRef.Total = updateRef.Quantity * updateRef.CostPerUnit;
 
                 updateRef.DateCreated = EnsureUtc(updateRef.DateCreated);
 

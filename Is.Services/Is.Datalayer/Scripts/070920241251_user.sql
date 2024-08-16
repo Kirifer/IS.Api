@@ -5,8 +5,6 @@ begin
     id uuid not null,
     username text not null,
     password text not null,
-    first_name text not null,
-    last_name text not null,
     email text not null,
    
     constraint pk_users primary key (id),
