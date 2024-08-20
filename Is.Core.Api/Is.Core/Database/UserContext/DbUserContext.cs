@@ -26,11 +26,7 @@ namespace Is.Core.Database
             if (userContext == null) { return; }
 
             UserId = userContext.UserId;
-            AuthId = userContext.AuthId;
             UserEmail = userContext.Email;
-
-            if (!userContext.Roles.IsNullOrEmpty())
-                IsAdmin = userContext.Roles.Contains(AuthRoles.Admin);
         }
     }
 }

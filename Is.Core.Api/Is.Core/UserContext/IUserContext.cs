@@ -4,14 +4,10 @@
     {
         Guid UserId { get; set; }
 
-        Guid AuthId { get; set; }
+        string FullName { get; set; }
 
         string Email { get; set; }
 
-        IEnumerable<string> Roles { get; set; }
-
-        IEnumerable<string> Permissions { get; set; }
-
-        bool HasPermission(params string[] requiredPermissions);
+        public bool IsAdmin { get; set; }
     }
 }
