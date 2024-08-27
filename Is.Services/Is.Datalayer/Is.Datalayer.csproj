@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Scripts\082220240139_make-static-users.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Is.Core.Api\Is.Core\Is.Core.csproj" />
   </ItemGroup>
 
@@ -16,7 +20,7 @@
     <EmbeddedResource Include="Scripts\070920241251_supplies.sql" />
     <EmbeddedResource Include="Scripts\070920241251_user.sql" />
     <EmbeddedResource Include="Scripts\082020241548_add-is-admin-on-user.sql" />
-    <EmbeddedResource Include="Scripts\082020241549_make-static-users.sql" />
+    <EmbeddedResource Include="Scripts\082220240139_make-static-users.sql" />
   </ItemGroup>
 
   <ItemGroup>

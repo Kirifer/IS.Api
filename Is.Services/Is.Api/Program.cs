@@ -27,7 +27,8 @@ builder.Services.AddCors(options =>
         {
             builder.WithOrigins("http://localhost:4200")
                    .AllowAnyHeader()
-                   .AllowAnyMethod();
+                   .AllowAnyMethod()
+                   .AllowCredentials();
         });
 });
 // Setup environment variables initially
@@ -122,5 +123,5 @@ app.UseCors("AllowSpecificOrigin");
 app.UseMiddleware<HttpOnlyMiddleware>(secretsConfig.JwtConfig!.CookieName);
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseCors("AllowSpecificOrigin");
 app.Run();

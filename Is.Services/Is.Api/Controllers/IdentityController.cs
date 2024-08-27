@@ -23,6 +23,7 @@ namespace Is.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("identity")]
+        [Authorize]
         public async Task<IActionResult> GetIdentityAsync()
         {
             var response = await accountService.GetIdentityAsync();
