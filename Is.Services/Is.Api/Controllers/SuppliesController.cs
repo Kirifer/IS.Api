@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Is.Api.Controllers
 {
-    [Authorize]
+    [Authorize()]
     [ApiController]
     [ProducesResponseType(typeof(Response<>), (int)HttpStatusCode.Unauthorized)]
     [ProducesResponseType(typeof(Response<>), (int)HttpStatusCode.Forbidden)]
