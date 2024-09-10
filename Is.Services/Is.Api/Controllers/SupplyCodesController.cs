@@ -4,9 +4,11 @@ using Is.Domain.Services;
 using Is.Domain.Services.Interface;
 using Is.Models;
 using Is.Models.Entities.SupplyCodes;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace Is.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [ProducesResponseType(typeof(Response<>), (int)HttpStatusCode.Unauthorized)]
     [ProducesResponseType(typeof(Response<>), (int)HttpStatusCode.Forbidden)]

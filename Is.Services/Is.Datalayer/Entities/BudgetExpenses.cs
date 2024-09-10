@@ -15,6 +15,7 @@ namespace Is.Datalayer.Entities
         public decimal Budget { get; set; }
         public decimal Expenses { get; set; }
         public decimal TotalBudget { get; set; }
+        public Guid UserId { get; set; }
 
     }
 }

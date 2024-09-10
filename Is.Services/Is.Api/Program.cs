@@ -115,7 +115,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAtsDatabase();
 app.UseRouting();
-app.MapControllers();
 // Use the CORS policy
 app.UseCors("AllowSpecificOrigin");
 
@@ -124,4 +123,5 @@ app.UseMiddleware<HttpOnlyMiddleware>(secretsConfig.JwtConfig!.CookieName);
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseCors("AllowSpecificOrigin");
+app.MapControllers();
 app.Run();

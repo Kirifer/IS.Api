@@ -14,25 +14,30 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Is.Models.Entities.BudgetExpenses;
+using Is.Core.Authentication;
 
 namespace Is.Domain.Services
 {
     public class BudgetExpensesService : EntityService, IBudgetExpensesService
     {
         private readonly IBudgetExpensesRepository _budgetExpensesRepository;
+        private readonly IUserContext _userContext;
         public BudgetExpensesService(
             IMapper mapper,
             ILogger<BudgetExpensesService> logger,
+            IUserContext userContext,
             IBudgetExpensesRepository budgetExpensesRepository)
             : base(mapper, logger)
         {
             _budgetExpensesRepository = budgetExpensesRepository;
+            _userContext = userContext;
         }
+        // GET
         public async Task<Response<List<IsBudgetExpensesDto>>> GetBudgetExpensesAsync()
         {
             try
             {
-                var result = await _budgetExpensesRepository.GetAllAsync(u => true);
+                var result = await _budgetExpensesRepository.GetAllAsync(u => u.UserId == _userContext.UserId);
                 var budgetExpensesDtoList = new List<IsBudgetExpensesDto>();
                 foreach (var budgetExpenses in result)
                 {
@@ -55,7 +60,7 @@ namespace Is.Domain.Services
                 return Response<List<IsBudgetExpensesDto>>.Exception(ex);
             }
         }
-        // GET
+        // GET {FILTER{
         public async Task<Response<IsBudgetExpensesDto>> GetBudgetExpenseAsync(Guid id)
         {
             try
@@ -92,7 +97,9 @@ namespace Is.Domain.Services
                     YearCreated = payload.YearCreated,
                     Budget = payload.Budget,
                     Expenses = payload.Expenses,
-                    TotalBudget = payload.Budget - payload.Expenses
+                    TotalBudget = payload.Budget - payload.Expenses,
+                    UserId = _userContext.UserId
+
                 };
                 var result = await _budgetExpensesRepository.AddAsync(createRef);
                 var budgetExpensesDto = new IsBudgetExpensesDto

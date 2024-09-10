@@ -32,7 +32,11 @@ namespace Is.Api.Controllers
             var uriHost = new Uri(Request.GetAbsoluteUrl());
             var cookieOptions = new CookieOptions
             {
-                Domain = uriHost.GetDomainName()
+                Domain = uriHost.GetDomainName(),
+
+                 HttpOnly = true,
+                 Secure = true,
+                 SameSite = SameSiteMode.None // Disable for localhost
             };
 
             Response.Cookies.Delete(config.JwtConfig!.CookieName, cookieOptions);

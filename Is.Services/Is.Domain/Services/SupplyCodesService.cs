@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Is.Datalayer.Interface;
 using Is.Models.Entities.SupplyCodes;
 using Is.Datalayer.Entities;
+using Is.Core.Authentication;
 
 namespace Is.Domain.Services
 {
@@ -14,14 +15,18 @@ namespace Is.Domain.Services
     {
         // create a field for the repository
         private readonly ISupplyCodesRepository _supplyCodesRepository;
+        private readonly IUserContext _userContext;
         //create a constructor for the service
         public SupplyCodesService(
             IMapper mapper,
             ILogger<SupplyCodesService> logger,
+            IUserContext userContext,
+
             ISupplyCodesRepository supplyCodesRepository)
             : base(mapper, logger)
         {
             _supplyCodesRepository = supplyCodesRepository;
+            _userContext = userContext;
         }
 
         // GET
@@ -31,7 +36,7 @@ namespace Is.Domain.Services
             {
                 // get all supplies, if no filter is provided we passed it as true
                 // if filter is provided, we will filter the supplies based on the filter
-                var result = await _supplyCodesRepository.GetAllAsync(supplycodes => true);
+                var result = await _supplyCodesRepository.GetAllAsync(supplycodes => supplycodes.UserId == _userContext.UserId);
 
                 // after fetching the supplies, we will map the supplies to the DOT
                 var supplycodesDtoList = new List<IsSupplyCodesDto>();
@@ -119,6 +124,7 @@ namespace Is.Domain.Services
                         Color = payload.Color,
                         Size = payload.Size,
                         Quantity = 1, 
+                        UserId = _userContext.UserId
                     };
 
                     var result = await _supplyCodesRepository.AddAsync(createRef);

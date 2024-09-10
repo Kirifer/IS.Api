@@ -8,6 +8,7 @@ begin
     budget decimal not null,
     expenses decimal not null,
     total_budget decimal not null,
+    user_id uuid not null,
 
     constraint pk_budget_expenses primary key (id)
 

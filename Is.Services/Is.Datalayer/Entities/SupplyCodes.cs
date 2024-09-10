@@ -16,7 +16,7 @@ namespace Is.Datalayer.Entities
         public int Quantity { get; set; }
         public bool SupplyTaken { get; set; }
         //public string CodeDisplay { get; set; }
-        
+        public Guid UserId { get; set; }
 
     }
 }

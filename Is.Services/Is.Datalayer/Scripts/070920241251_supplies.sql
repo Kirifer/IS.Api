@@ -13,6 +13,7 @@ begin
     cost_per_unit decimal not null,
     total decimal not null,
     date_created date not null,
+    user_id uuid not null,
 
     constraint pk_supplies primary key (id)
 

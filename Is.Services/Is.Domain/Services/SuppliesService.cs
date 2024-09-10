@@ -15,21 +15,25 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Is.Models.Entities.Supply;
+using Is.Core.Authentication;
 
 namespace Is.Domain.Services
 {
     public class SuppliesService : EntityService, ISuppliesService
     {
         private readonly ISuppliesRepository _suppliesRepository;
+        private readonly IUserContext _userContext;
 
         public SuppliesService(
             IMapper mapper,
             ILogger<SuppliesService> logger,
+            IUserContext userContext,
 
             ISuppliesRepository suppliesRepository)
             : base(mapper, logger)
         {
             _suppliesRepository = suppliesRepository;
+            _userContext = userContext;
         }
         // Helper method to apply UTC+08:00 offset
         private DateTime ConvertToPhilippinesTimeAsUtc(DateTime utcDateTime)
@@ -56,7 +60,7 @@ namespace Is.Domain.Services
         {
             try
             {
-                var result = await _suppliesRepository.GetAllAsync(u => true);
+                var result = await _suppliesRepository.GetAllAsync(supplies => supplies.UserId == _userContext.UserId);
 
                 var suppliesDtos = new List<IsSuppliesDto>();
                 foreach (var supplier in result)
@@ -124,7 +128,7 @@ namespace Is.Domain.Services
             {
                 var createRef = new Supplies
                 {
-                    Id= payload.Id,
+                    Id = payload.Id,
                     Category = payload.Category,
                     Item = payload.Item,
                     Color = payload.Color,
@@ -134,8 +138,8 @@ namespace Is.Domain.Services
                     SuppliesLeft = payload.SuppliesLeft,
                     CostPerUnit = payload.CostPerUnit,
                     Total = payload.Quantity * payload.CostPerUnit,
-                    DateCreated = EnsureUtc(payload.DateCreated)
-
+                    DateCreated = EnsureUtc(payload.DateCreated),
+                    UserId = _userContext.UserId
 
                 };
 

@@ -17,6 +17,8 @@ namespace Is.Datalayer.Entities
         public  decimal Total { get; set; }
         public DateTime DateCreated { get; set; }
 
+        public Guid UserId { get; set; }
+
     }
 }
 

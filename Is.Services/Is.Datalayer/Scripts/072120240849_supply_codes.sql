@@ -11,6 +11,7 @@ begin
     size text not null,
     quantity int not null,
     supply_taken boolean default false,
+    user_id uuid not null,
 
     constraint pk_supplycodes primary key (id)
 

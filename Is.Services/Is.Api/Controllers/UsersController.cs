@@ -3,10 +3,12 @@
 using Is.Core.Filtering;
 using Is.Domain.Services.Interface;
 using Is.Models.Entities.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Is.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [ProducesResponseType(typeof(Response<>), (int)HttpStatusCode.Unauthorized)]
     [ProducesResponseType(typeof(Response<>), (int)HttpStatusCode.Forbidden)]
