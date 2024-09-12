@@ -9,6 +9,7 @@
   <ItemGroup>
     <None Remove="Scripts\082820241031_make-static-users.sql" />
     <None Remove="Scripts\090620240628_make-static-users.sql" />
+    <None Remove="Scripts\091020240526_make-static-users.sql" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +22,7 @@
     <EmbeddedResource Include="Scripts\070920241251_supplies.sql" />
     <EmbeddedResource Include="Scripts\070920241251_user.sql" />
     <EmbeddedResource Include="Scripts\082020241548_add-is-admin-on-user.sql" />
+    <EmbeddedResource Include="Scripts\091020240526_make-static-users.sql" />
     <EmbeddedResource Include="Scripts\090620240628_make-static-users.sql" />
     <EmbeddedResource Include="Scripts\082820241031_make-static-users.sql" />
   </ItemGroup>
